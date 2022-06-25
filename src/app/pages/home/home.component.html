@@ -16,14 +16,16 @@
             <span class="section-heading-lower">Confirme sua presença!</span>
           </h2>
           <p>Informe seu nome, telefone, seus acompanhantes e suas idades.</p>
-          <div>
+          <form [formGroup]="form" (ngSubmit)="confirm()">
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="name" placeholder="">
+              <input type="text" class="form-control" formControlName="name" id="name" placeholder="">
               <label for="name">Seu Nome</label>
+              <small *ngIf="validOrTouched('name')" class="form-text text-danger">Nome Obrigatório</small>
             </div>
             <div class="form-floating mb-3">
-              <input type="number" class="form-control" id="phone" placeholder="">
+              <input type="number" class="form-control" formControlName="phone" id="phone" placeholder="">
               <label for="phone">Seu Telefone</label>
+              <small *ngIf="validOrTouched('phone')" class="form-text text-danger">Telefone Obrigatório (apenas números)</small>
             </div>
             <div class="guests">
               <div class="input-group mb-3">
@@ -38,12 +40,11 @@
                 </div>
               </div>
             </div>
-            <button type="button" class="btn btn-success">Confirmar</button>
-            <button class="btn btn-primary" type="button" disabled>
+            <button class="btn btn-success" type="submit">
+              Confirmar
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-              Loading...
             </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
