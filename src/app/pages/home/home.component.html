@@ -15,7 +15,7 @@
           <h2 class="section-heading mb-4">
             <span class="section-heading-lower">Confirme sua presença!</span>
           </h2>
-          <p>Por favor confirme sua presença e informe sua idade para o buffet.</p>
+          <p>Por favor confirme sua presença e idade para o buffet.</p>
           <form [formGroup]="form" (ngSubmit)="confirm()">
             <div class="form-floating mb-3">
               <input type="text" readonly class="form-control" formControlName="name" id="name" placeholder="Seu Nome">
@@ -27,24 +27,24 @@
               <label for="phone">Seu Telefone</label>
               <small *ngIf="validOrTouched('phone')" class="form-text text-danger">Telefone Obrigatório (apenas números)</small>
             </div>
-            <button type="button" class="btn btn-outline-primary btn-sm" (click)="addGuest()">
+            <button type="button" hidden class="btn btn-outline-primary btn-sm" (click)="addGuest()">
               <em class="fa-solid fa-plus"></em>
               Adicionar Acompanhante
             </button>
               <div formArrayName="guests" *ngFor="let item of guests.controls; let i= index">
-                <div class="input-group mb-3" [formGroupName]="i">
-                  <div class="form-floating mb-3 col-7">
+                <div class="input-group mb-3 guests" [formGroupName]="i">
+                  <div class="form-floating mb-3 col-8">
                     <input type="text" readonly class="form-control" formControlName="guestName" id="guestName" placeholder="Acompanhante">
                     <label for="guestName">Acompanhante</label>
                     <small *ngIf="validOrTouchedGuests('guestName', i)" class="form-text text-danger">Nome Acompanhante Obrigatório</small>
                   </div>
-                  <span ></span>
-                  <div class="form-floating mb-3 col-3">
-                    <input type="number" class="form-control" formControlName="guestAge" id="guestAge" placeholder="Idade">
-                    <label for="guestAge">Idade</label>
-                    <small *ngIf="validOrTouchedGuests('guestAge', i)" class="form-text text-danger">Idade Acompanhante Obrigatório</small>
+                  <div class="form-check">
+                    <input class="form-check-input checkbox-xl" type="checkbox" formControlName="isKid" id="flexCheckDefault">
+                    <label class="form-check-label" style="padding-left: 8px" for="flexCheckDefault">
+                      Menor de 15 anos?
+                    </label>
                   </div>
-                  <div class="form-floating mb-3 ms-auto">
+                  <div class="form-floating mb-3">
                     <button type="button" class="btn btn-outline-primary" (click)="removeGuest(i)">
                       <em class="fa-solid fa-trash-can"></em>
                     </button>

@@ -24,7 +24,7 @@ export class HomeComponent {
   addGuest() {
     this.guests.push(this.formBuilder.group({
       guestName: [null, Validators.required],
-      guestAge: [null, Validators.required],
+      isKid: [true],
     }));
   }
 
