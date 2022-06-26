@@ -18,25 +18,34 @@
           <p>Informe seu nome, telefone, seus acompanhantes e suas idades.</p>
           <form [formGroup]="form" (ngSubmit)="confirm()">
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" formControlName="name" id="name" placeholder="">
+              <input type="text" class="form-control" formControlName="name" id="name" placeholder="Seu Nome">
               <label for="name">Seu Nome</label>
               <small *ngIf="validOrTouched('name')" class="form-text text-danger">Nome Obrigatório</small>
             </div>
             <div class="form-floating mb-3">
-              <input type="number" class="form-control" formControlName="phone" id="phone" placeholder="">
+              <input type="number" class="form-control" formControlName="phone" id="phone" placeholder="Seu Telefone">
               <label for="phone">Seu Telefone</label>
               <small *ngIf="validOrTouched('phone')" class="form-text text-danger">Telefone Obrigatório (apenas números)</small>
             </div>
+            <button type="button" class="btn btn-outline-primary btn-sm">
+              <i class="fa-solid fa-plus"></i>
+              Adicionar Acompanhante
+            </button>
             <div class="guests">
               <div class="input-group mb-3">
-                <div class="form-floating mb-3 col-10">
-                  <input type="text" class="form-control" id="guest" placeholder="">
-                  <label for="guest">Nome do Acompanhante</label>
+                <div class="form-floating mb-3 col-7">
+                  <input type="text" class="form-control" id="guest" placeholder="Acompanhante">
+                  <label for="guest">Acompanhante</label>
                 </div>
                 <span ></span>
-                <div class="form-floating mb-3 col-2">
-                  <input type="number" class="form-control" id="guestAge" placeholder="">
+                <div class="form-floating mb-3 col-3">
+                  <input type="number" class="form-control" id="guestAge" placeholder="Idade">
                   <label for="guestAge">Idade</label>
+                </div>
+                <div class="form-floating mb-3 ms-auto">
+                  <button type="button" class="btn btn-outline-primary">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
                 </div>
               </div>
             </div>

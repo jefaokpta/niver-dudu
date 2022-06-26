@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-home',
@@ -13,7 +13,8 @@ export class HomeComponent {
     phone: ['', [Validators.required]],
   })
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              ) { }
 
   confirm() {
     console.log(this.form.valid);
