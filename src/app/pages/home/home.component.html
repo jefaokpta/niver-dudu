@@ -18,12 +18,12 @@
           <p>Por favor confirme sua presença e informe sua idade para o buffet.</p>
           <form [formGroup]="form" (ngSubmit)="confirm()">
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" formControlName="name" id="name" placeholder="Seu Nome">
+              <input type="text" readonly class="form-control" formControlName="name" id="name" placeholder="Seu Nome">
               <label for="name">Seu Nome</label>
               <small *ngIf="validOrTouched('name')" class="form-text text-danger">Nome Obrigatório</small>
             </div>
             <div class="form-floating mb-3">
-              <input type="number" class="form-control" formControlName="phone" id="phone" placeholder="Seu Telefone">
+              <input type="number" readonly class="form-control" formControlName="phone" id="phone" placeholder="Seu Telefone">
               <label for="phone">Seu Telefone</label>
               <small *ngIf="validOrTouched('phone')" class="form-text text-danger">Telefone Obrigatório (apenas números)</small>
             </div>
@@ -34,7 +34,7 @@
               <div formArrayName="guests" *ngFor="let item of guests.controls; let i= index">
                 <div class="input-group mb-3" [formGroupName]="i">
                   <div class="form-floating mb-3 col-7">
-                    <input type="text" class="form-control" formControlName="guestName" id="guestName" placeholder="Acompanhante">
+                    <input type="text" readonly class="form-control" formControlName="guestName" id="guestName" placeholder="Acompanhante">
                     <label for="guestName">Acompanhante</label>
                     <small *ngIf="validOrTouchedGuests('guestName', i)" class="form-text text-danger">Nome Acompanhante Obrigatório</small>
                   </div>
