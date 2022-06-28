@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {FormArray, FormBuilder, Validators} from "@angular/forms";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -9,13 +10,15 @@ import {FormArray, FormBuilder, Validators} from "@angular/forms";
 export class HomeComponent {
 
   sendButtornLoading: boolean = true;
+  private param = this.activatedRoute.snapshot.paramMap.get('idParticipant');
   form = this.formBuilder.group({
     name: [null, Validators.required],
     phone: [null, [Validators.required]],
     guests: this.formBuilder.array([])
   })
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private activatedRoute: ActivatedRoute) {}
 
   get guests() {
     return this.form.get('guests') as FormArray;
