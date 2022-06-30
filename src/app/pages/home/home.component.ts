@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit{
     return this.form.get('guests') as FormArray;
   }
 
-  private addGuest(guest: Guest) {
+  addGuest(guest: Guest) {
     this.guests.push(this.formBuilder.group({
       id: [guest.id],
       name: [guest.name, Validators.required],
