@@ -17,6 +17,7 @@ export class AdminComponent {
   private param = this.activatedRoute.snapshot.paramMap.get('idParticipant');
 
   form = this.formBuilder.group({
+    id: [null],
     name: [null, Validators.required],
     phone: [null, [Validators.required]],
     confirmed: [false],
