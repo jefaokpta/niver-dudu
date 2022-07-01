@@ -1,0 +1,67 @@
+<header>
+  <h1 class="site-heading text-center text-faded d-lg-block">
+    <span class="site-heading-upper text-primary mb-3">Chegou a hora de comemoramos juntos!</span>
+    <span class="site-heading-lower">Eduardo 10 anos</span>
+  </h1>
+</header>
+
+<section class="page-section about-heading">
+  <div class="container">
+<!--    <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="assets/img/dudu.jpeg" alt="Convite do Dudu" />-->
+    <div class="about-heading-content">
+      <div class="row">
+        <div class="col-xl-9 col-lg-10 mx-auto">
+          <div class="bg-faded rounded p-5">
+            <h2 class="section-heading mb-4">
+              <span class="section-heading-lower">Cadastre as pessoas Momoa!</span>
+            </h2>
+            <p>Por favor confirme sua presença e idade para o buffet.</p>
+            <form [formGroup]="form" (ngSubmit)="confirm()">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" formControlName="name" id="name" placeholder="Seu Nome">
+                <label for="name">Seu Nome</label>
+                <small *ngIf="validOrTouched('name')" class="form-text text-danger">Nome Obrigatório</small>
+              </div>
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" formControlName="phone" id="phone" placeholder="Seu Telefone">
+                <label for="phone">Seu Telefone</label>
+                <small *ngIf="validOrTouched('phone')" class="form-text text-danger">Telefone Obrigatório (apenas números)</small>
+              </div>
+              <button type="button" class="btn btn-outline-primary btn-sm" (click)="addGuest({name: '', isKid: false, id: 0})">
+                <em class="fa-solid fa-plus"></em>
+                Adicionar Acompanhante
+              </button>
+              <div formArrayName="guests" *ngFor="let item of guests.controls; let i= index">
+                <div class="input-group mb-3 guests" [formGroupName]="i">
+                  <div class="form-floating mb-3 col-8">
+                    <input type="text" class="form-control" formControlName="name" id="guestName" placeholder="Acompanhante">
+                    <label for="guestName">Acompanhante</label>
+                    <small *ngIf="validOrTouchedGuests('name', i)" class="form-text text-danger">Nome Acompanhante Obrigatório</small>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input checkbox-xl" type="checkbox" formControlName="isKid" id="flexCheckDefault">
+                    <label class="form-check-label" style="padding-left: 8px" for="flexCheckDefault">
+                      Menor de 15 anos?
+                    </label>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <button type="button" class="btn btn-outline-primary" (click)="removeGuest(i)">
+                      <em class="fa-solid fa-trash-can"></em>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-success col-12" type="submit">
+                {{sendButtonText}}
+                <span [hidden]="sendButtornLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="footer text-faded text-center py-5">
+  <div class="container"><p class="m-0 small">Feito com ❤️ pelo papai <a href="https://www.linkedin.com/in/🤓-jefferson-alves-reis-00007361/">jefaokpta</a> 2022 </p></div>
+</footer>
