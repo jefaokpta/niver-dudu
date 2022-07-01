@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Participant} from "../model/Participant";
 
@@ -8,20 +8,18 @@ import {Participant} from "../model/Participant";
 })
 export class ServerService {
 
-  private resource = 'participants'
-  private options = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      // 'Authorization': 'Bearer YWRtaW46YWRtaW4='
-    })
-  }
+  private resource = '/api/participants'
   constructor(private http: HttpClient) { }
 
   findById(id: string) {
-    return this.http.get(`${environment.URL_SERVER}/${this.resource}/${id}`, this.options);
+    return this.http.get(`${environment.URL_SERVER}${this.resource}/${id}`);
+  }
+
+  create(participant: Participant) {
+    return this.http.post(`${environment.URL_SERVER}${this.resource}`, participant);
   }
 
   update(participant: Participant) {
-    return this.http.put(`${environment.URL_SERVER}/${this.resource}`, participant, this.options);
+    return this.http.put(`${environment.URL_SERVER}${this.resource}`, participant);
   }
 }

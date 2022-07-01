@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // URL_SERVER: 'http://localhost:8080/api',
-  URL_SERVER: 'https://niver-dudu.herokuapp.com/api',
+  // URL_SERVER: 'http://localhost:8080',
+  URL_SERVER: 'https://niver-dudu.herokuapp.com',
 };
 
 /*
