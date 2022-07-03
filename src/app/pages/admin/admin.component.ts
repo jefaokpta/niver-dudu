@@ -31,6 +31,9 @@ export class AdminComponent implements OnInit {
       phone: {
         title: 'Telefone'
       },
+      link: {
+        title: 'Link'
+      },
       confirmed: {
         title: 'Confirmado'
       }
@@ -56,7 +59,17 @@ export class AdminComponent implements OnInit {
   private load() {
     this.server.findAll().subscribe({
       next: (response) => {
-        this.participants = response as Participant[];
+        const p = response as Participant[];
+        this.participants = p.map(participant => {
+          return {
+            id: participant.id,
+            name: participant.name,
+            phone: participant.phone,
+            link: `https://aniversario-dudu.jpbx.com.br/${participant.id}`,
+            confirmed: participant.confirmed,
+            guests: participant.guests
+          }
+        });
       }
     })
   }
@@ -101,7 +114,9 @@ export class AdminComponent implements OnInit {
   doPut() {
     this.server.update(this.form.value).subscribe({
       next: (response) => {
+        this.guests.clear()
         this.form.reset()
+        this.load()
         this.editButtonShow = false;
       }
     })
@@ -113,6 +128,7 @@ export class AdminComponent implements OnInit {
       this.sendButtornLoading = false;
       this.server.create(this.form.value).subscribe({
         next: (response) => {
+          this.guests.clear()
           this.form.reset()
           this.load()
           console.log(response);

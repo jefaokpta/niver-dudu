@@ -3,6 +3,7 @@ export interface Participant {
   name: string;
   phone: string;
   confirmed: boolean;
+  link: string;
   guests: [Guest];
 }
 
