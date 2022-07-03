@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {ServerService} from "../../services/server.service";
 import {Guest, Participant} from "../../model/Participant";
 import {Row} from "ng2-smart-table/lib/lib/data-set/row";
+import {ConfirmedComponent} from "../../components/confirmed/confirmed.component";
 
 @Component({
   selector: 'app-admin',
@@ -35,7 +36,9 @@ export class AdminComponent implements OnInit {
         title: 'Link'
       },
       confirmed: {
-        title: 'Confirmado'
+        title: 'Confirmado',
+        type: 'custom',
+        renderComponent: ConfirmedComponent
       }
     }
   };
