@@ -11,6 +11,10 @@ export class ServerService {
   private resource = '/api/participants'
   constructor(private http: HttpClient) { }
 
+  findAll() {
+    return this.http.get(`${environment.URL_SERVER}${this.resource}`);
+  }
+
   findById(id: string) {
     return this.http.get(`${environment.URL_SERVER}${this.resource}/${id}`);
   }
@@ -21,5 +25,9 @@ export class ServerService {
 
   update(participant: Participant) {
     return this.http.put(`${environment.URL_SERVER}${this.resource}`, participant);
+  }
+
+  delete(id: string) {
+    return this.http.delete(`${environment.URL_SERVER}${this.resource}/${id}`);
   }
 }

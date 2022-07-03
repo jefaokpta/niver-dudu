@@ -1,20 +1,41 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {ServerService} from "../../services/server.service";
-import {Guest} from "../../model/Participant";
+import {Guest, Participant} from "../../model/Participant";
+import {Row} from "ng2-smart-table/lib/lib/data-set/row";
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit {
 
   sendButtornLoading = true;
   sendButtonText = 'Salvar';
+  editButtonShow = false;
+  participants: Participant[] = [];
 
-  private param = this.activatedRoute.snapshot.paramMap.get('idParticipant');
+  tableSettings = {
+    mode: 'external',
+    // hideSubHeader: true,
+    actions: {
+      add: false,
+      position: 'right',
+    },
+    columns: {
+      name: {
+        title: 'Nome'
+      },
+      phone: {
+        title: 'Telefone'
+      },
+      confirmed: {
+        title: 'Confirmado'
+      }
+    }
+  };
 
   form = this.formBuilder.group({
     id: [null],
@@ -27,6 +48,39 @@ export class AdminComponent {
   constructor(private formBuilder: FormBuilder,
               private activatedRoute: ActivatedRoute,
               private server: ServerService) {}
+
+  ngOnInit(): void {
+      this.load();
+  }
+
+  private load() {
+    this.server.findAll().subscribe({
+      next: (response) => {
+        this.participants = response as Participant[];
+      }
+    })
+  }
+
+  edit(row: Row) {
+    const participant = row.getData() as Participant;
+    this.form.controls['id'].setValue(participant.id);
+    this.form.controls['name'].setValue(participant.name);
+    this.form.controls['phone'].setValue(participant.phone);
+    participant.guests.forEach(guest => {this.addGuest(guest)});
+    this.editButtonShow = true;
+  }
+
+  delete(row: Row) {
+    const index = row.index;
+    const participant = row.getData() as Participant;
+    this.server.delete(participant.id).subscribe({
+      next: () => {
+        console.log('Deletado');
+        this.load()
+      }
+    })
+    // console.log(data);
+  }
 
   get guests() {
     return this.form.get('guests') as FormArray;
@@ -44,6 +98,15 @@ export class AdminComponent {
     this.guests.removeAt(index);
   }
 
+  doPut() {
+    this.server.update(this.form.value).subscribe({
+      next: (response) => {
+        this.form.reset()
+        this.editButtonShow = false;
+      }
+    })
+  }
+
   confirm() {
     console.log(this.form.value);
     if(this.form.valid){
@@ -51,6 +114,7 @@ export class AdminComponent {
       this.server.create(this.form.value).subscribe({
         next: (response) => {
           this.form.reset()
+          this.load()
           console.log(response);
         },
         error: (error) => {
@@ -78,5 +142,4 @@ export class AdminComponent {
     const field = this.form.get('guests')?.get(index.toString())?.get(fieldName)
     return field!!.touched && !field!!.valid
   }
-
 }
