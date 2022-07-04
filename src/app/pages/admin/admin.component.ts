@@ -18,6 +18,9 @@ export class AdminComponent implements OnInit {
   sendButtonText = 'Salvar';
   editButtonShow = false;
   participants: Participant[] = [];
+  participantsNumber = 0;
+  participantsConfirmedNumber = 0;
+  guestsNumber = 0;
 
   tableSettings = {
     mode: 'external',
@@ -76,8 +79,15 @@ export class AdminComponent implements OnInit {
             guests: participant.guests
           }
         });
+        this.countParticipants(this.participants);
       }
     })
+  }
+
+  countParticipants(participants: Participant[]){
+    this.participantsConfirmedNumber = participants.filter(participant => participant.confirmed).length
+    this.participantsNumber = participants.length
+    this.guestsNumber = participants.reduce((acc, participant) => acc + participant.guests.length, 0)
   }
 
   edit(row: Row) {
@@ -85,6 +95,7 @@ export class AdminComponent implements OnInit {
     this.form.controls['id'].setValue(participant.id);
     this.form.controls['name'].setValue(participant.name);
     this.form.controls['phone'].setValue(participant.phone);
+    this.guests.clear();
     participant.guests.forEach(guest => {this.addGuest(guest)});
     this.editButtonShow = true;
   }
