@@ -5,6 +5,7 @@ import {ServerService} from "../../services/server.service";
 import {Guest, Participant} from "../../model/Participant";
 import {Row} from "ng2-smart-table/lib/lib/data-set/row";
 import {ConfirmedComponent} from "../../components/confirmed/confirmed.component";
+import {CopyClipboardComponent} from "../../components/copy-clipboard/copy-clipboard.component";
 
 @Component({
   selector: 'app-admin',
@@ -33,7 +34,9 @@ export class AdminComponent implements OnInit {
         title: 'Telefone'
       },
       link: {
-        title: 'Link'
+        title: 'Link',
+        type: 'custom',
+        renderComponent: CopyClipboardComponent
       },
       confirmed: {
         title: 'Confirmado',
@@ -87,7 +90,6 @@ export class AdminComponent implements OnInit {
   }
 
   delete(row: Row) {
-    const index = row.index;
     const participant = row.getData() as Participant;
     this.server.delete(participant.id).subscribe({
       next: () => {
@@ -95,7 +97,6 @@ export class AdminComponent implements OnInit {
         this.load()
       }
     })
-    // console.log(data);
   }
 
   get guests() {
@@ -116,7 +117,7 @@ export class AdminComponent implements OnInit {
 
   doPut() {
     this.server.update(this.form.value).subscribe({
-      next: (response) => {
+      next: () => {
         this.guests.clear()
         this.form.reset()
         this.load()
