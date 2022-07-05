@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit{
   sendButtonText = 'Confirmar';
   sendButtonTextConfirmed = 'Confirmado! 👍🏼';
   sendButtonDisabled = true
+  btnLoading: boolean = true;
 
   private param = this.activatedRoute.snapshot.paramMap.get('idParticipant');
 
@@ -25,6 +26,7 @@ export class HomeComponent implements OnInit{
     confirmed: [false],
     guests: this.formBuilder.array([])
   })
+
 
   constructor(private formBuilder: FormBuilder,
               private activatedRoute: ActivatedRoute,
@@ -46,6 +48,7 @@ export class HomeComponent implements OnInit{
               }
             },
             error: (error) => console.log('CAGOU', error),
+            complete: () => this.btnLoading = false
           }
         )
       }
@@ -72,7 +75,7 @@ export class HomeComponent implements OnInit{
     console.log(this.form.value);
     this.form.controls['confirmed'].setValue(true);
     this.server.update(this.form.value).subscribe({
-      next: (response) => {
+      next: () => {
         this.sendButtonText = this.sendButtonTextConfirmed;
         this.sendButtornLoading = true;
         this.sendButtonDisabled = true;

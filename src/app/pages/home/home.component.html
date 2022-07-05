@@ -16,6 +16,9 @@
             <span class="section-heading-lower">Confirme sua presença!</span>
           </h2>
           <p>Por favor confirme sua presença e idade para o buffet.</p>
+          <div class="spinner-border text-info" role="status" [hidden]="!btnLoading">
+            <span class="visually-hidden">Loading...</span>
+          </div>
           <form [formGroup]="form" (ngSubmit)="confirm()">
             <div class="form-floating mb-3">
               <input type="text" readonly class="form-control" formControlName="name" id="name" placeholder="Seu Nome">
