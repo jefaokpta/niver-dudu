@@ -101,6 +101,9 @@ export class AdminComponent implements OnInit {
   }
 
   delete(row: Row) {
+    if(!confirm('Deseja realmente excluir?')){
+      return
+    }
     const participant = row.getData() as Participant;
     this.server.delete(participant.id).subscribe({
       next: () => {
