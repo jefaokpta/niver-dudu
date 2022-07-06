@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, Validators} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ServerService} from "../../services/server.service";
 import {Guest, Participant} from "../../model/Participant";
 import {Row} from "ng2-smart-table/lib/lib/data-set/row";
@@ -59,10 +59,17 @@ export class AdminComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private activatedRoute: ActivatedRoute,
-              private server: ServerService) {}
+              private server: ServerService,
+              private router: Router
+  ) {}
 
   ngOnInit(): void {
+    if (prompt('Digite o código de acesso:') === '2912') {
       this.load();
+    } else {
+      alert('Código incorreto');
+      this.router.navigate(['/']);
+    }
   }
 
   private load() {
